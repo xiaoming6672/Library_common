@@ -31,6 +31,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
 
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
-    implementation 'com.github.xiaoming6672:Library_utils:1.0.1'
+    implementation 'com.github.xiaoming6672:Library_utils:1.0.5'
 
 }

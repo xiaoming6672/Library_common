@@ -1,5 +1,6 @@
 package com.zhang.library.common.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -57,6 +58,14 @@ public abstract class BaseAppView extends FrameLayout
 
     @Override
     public void onClick(View v) {
+    }
+
+    public Activity getActivity() {
+        Context context = getContext();
+        if (context instanceof Activity) {
+            return ((Activity) context);
+        }
+        return null;
     }
 
     /** 获取View的布局 */
