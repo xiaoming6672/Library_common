@@ -9,8 +9,8 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.jaeger.library.StatusBarUtil;
-import com.zhang.library.utils.utils.LogUtils;
-import com.zhang.library.utils.utils.ToastUtils;
+import com.zhang.library.utils.LogUtils;
+import com.zhang.library.utils.context.ToastUtils;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
