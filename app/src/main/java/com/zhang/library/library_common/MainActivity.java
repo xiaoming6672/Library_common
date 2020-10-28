@@ -1,14 +1,21 @@
 package com.zhang.library.library_common;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.zhang.library.common.activity.BaseActivity;
 
-import android.os.Bundle;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int onCreateLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 }
