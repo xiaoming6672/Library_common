@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
         setRequestedOrientation(getActivityOrientation());
 
-        getIntentData();
+        getIntentData(getIntent());
         initView();
         initData();
     }
@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity
         return ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
     }
 
-    protected void getIntentData() {
+    protected void getIntentData(Intent intent) {
     }
 
     /** 设置沉浸式状态栏 */
