@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -28,9 +32,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "androidx.appcompat:appcompat:$AppcompatVersion"
 
     implementation 'com.jaeger.statusbarutil:library:1.5.1'
-    implementation 'com.github.xiaoming6672:Library_utils:1.0.7'
+    implementation "com.github.xiaoming6672:Library_utils:$LibraryUtilsVersion"
+
+    implementation "androidx.lifecycle:lifecycle-common:$AndroidxLifecycleVersion"
+
+    api "com.trello.rxlifecycle4:rxlifecycle-components:$RxLifecycleVersion" // If you want pre-written Activities and Fragments you can subclass as providers
 
 }
