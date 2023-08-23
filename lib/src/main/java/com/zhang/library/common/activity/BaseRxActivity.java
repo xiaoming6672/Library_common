@@ -9,11 +9,8 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
-import com.zhang.library.common.vm.factory.ActivityVMFactory;
 import com.zhang.library.utils.LogUtils;
 import com.zhang.library.utils.context.ViewUtils;
 
@@ -22,15 +19,13 @@ import com.zhang.library.utils.context.ViewUtils;
  *
  * @author ZhangXiaoMing 2020-08-13 15:27 星期四
  */
-public abstract class XMBaseActivity extends RxAppCompatActivity
+public abstract class BaseRxActivity extends RxAppCompatActivity
         implements View.OnClickListener {
 
     protected final String TAG = getClass().getSimpleName();
 
-    protected ViewModelProvider mViewModelProvider;
 
-
-    protected XMBaseActivity getActivity() {
+    protected BaseRxActivity getActivity() {
         return this;
     }
 
@@ -109,41 +104,6 @@ public abstract class XMBaseActivity extends RxAppCompatActivity
     private void setStatusBarTransparent(boolean isDark) {
         ViewUtils.setStatusBarTransparent(this);
         ViewUtils.setStatusBarTextColor(this, isDark);
-    }
-
-    /**
-     * 创建获取ViewModel对象
-     *
-     * @param modelClass ViewModel类对象
-     * @param <T>        继承ViewModel的子类
-     *
-     * @return ViewModel对象
-     */
-    protected <T extends ViewModel> T createViewModel(Class<T> modelClass) {
-        if (mViewModelProvider == null) {
-            ActivityVMFactory factory = new ActivityVMFactory(this);
-            mViewModelProvider = new ViewModelProvider(this, factory);
-        }
-
-        return mViewModelProvider.get(modelClass);
-    }
-
-    /**
-     * 创建获取ViewModel对象
-     *
-     * @param modelClass ViewModel类对象
-     * @param key        创建的key
-     * @param <T>        继承ViewModel的子类
-     *
-     * @return ViewModel对象
-     */
-    protected <T extends ViewModel> T createViewModel(Class<T> modelClass, String key) {
-        if (mViewModelProvider == null) {
-            ActivityVMFactory factory = new ActivityVMFactory(this);
-            mViewModelProvider = new ViewModelProvider(this, factory);
-        }
-
-        return mViewModelProvider.get(key, modelClass);
     }
 
 

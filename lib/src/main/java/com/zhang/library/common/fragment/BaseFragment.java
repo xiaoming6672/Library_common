@@ -9,11 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.fragment.app.Fragment;
 
-import com.trello.rxlifecycle4.components.support.RxFragment;
-import com.zhang.library.common.vm.factory.FragmentVMFactory;
 import com.zhang.library.utils.LogUtils;
 
 /**
@@ -21,15 +18,13 @@ import com.zhang.library.utils.LogUtils;
  *
  * @author ZhangXiaoMing 2020-11-02 11:08 星期一
  */
-public abstract class XMBaseFragment extends RxFragment {
+public abstract class BaseFragment extends Fragment {
 
     protected final String TAG = getClass().getSimpleName();
 
 
     /** 数据已初始化 */
     protected boolean isDataInitialed;
-
-    protected ViewModelProvider mViewModelProvider;
 
 
     @Override
@@ -63,6 +58,8 @@ public abstract class XMBaseFragment extends RxFragment {
 
         onInitView(view);
         onInitListener();
+
+        onPreInitData();
     }
 
     @Override
@@ -141,40 +138,6 @@ public abstract class XMBaseFragment extends RxFragment {
         return TAG;
     }
 
-    /**
-     * 创建获取ViewModel对象
-     *
-     * @param modelClass ViewModel类对象
-     * @param <T>        继承ViewModel的子类
-     *
-     * @return ViewModel对象
-     */
-    protected <T extends ViewModel> T createViewModel(Class<T> modelClass) {
-        if (mViewModelProvider == null) {
-            FragmentVMFactory factory = new FragmentVMFactory(this);
-            mViewModelProvider = new ViewModelProvider(this, factory);
-        }
-
-        return mViewModelProvider.get(modelClass);
-    }
-
-    /**
-     * 创建获取ViewModel对象
-     *
-     * @param modelClass ViewModel类对象
-     * @param key        创建的key
-     * @param <T>        继承ViewModel的子类
-     *
-     * @return ViewModel对象
-     */
-    protected <T extends ViewModel> T createViewModel(Class<T> modelClass, String key) {
-        if (mViewModelProvider == null) {
-            FragmentVMFactory factory = new FragmentVMFactory(this);
-            mViewModelProvider = new ViewModelProvider(this, factory);
-        }
-
-        return mViewModelProvider.get(key, modelClass);
-    }
 
     /**
      * 解析Bundle参数
@@ -200,6 +163,10 @@ public abstract class XMBaseFragment extends RxFragment {
 
     /** 初始化监听器 */
     protected abstract void onInitListener();
+
+    /** 提前初始化数据 */
+    protected void onPreInitData() {
+    }
 
     /** 初始化数据 */
     protected abstract void onInitData();

@@ -5,12 +5,12 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 
-import com.zhang.library.common.fragment.XMBaseFragment;
+import com.zhang.library.common.fragment.BaseRxFragment;
 
 /**
  * @author ZhangXiaoMing 2020-11-02 11:21 星期一
  */
-public class TestFragment extends XMBaseFragment {
+public class TestFragment extends BaseRxFragment {
 
 
     /** 初始化逻辑类对象 */

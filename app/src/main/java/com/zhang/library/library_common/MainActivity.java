@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.zhang.library.common.activity.XMBaseActivity;
+import com.zhang.library.common.activity.BaseRxActivity;
 
-public class MainActivity extends XMBaseActivity {
+public class MainActivity extends BaseRxActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
