@@ -9,8 +9,8 @@ import android.view.View;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 import com.zhang.library.utils.LogUtils;
 import com.zhang.library.utils.context.ViewUtils;
 
@@ -19,13 +19,13 @@ import com.zhang.library.utils.context.ViewUtils;
  *
  * @author ZhangXiaoMing 2020-08-13 15:27 星期四
  */
-public abstract class BaseActivity extends AppCompatActivity
+public abstract class BaseRxActivity extends RxAppCompatActivity
         implements View.OnClickListener {
 
     protected final String TAG = getClass().getSimpleName();
 
 
-    protected BaseActivity getActivity() {
+    protected BaseRxActivity getActivity() {
         return this;
     }
 

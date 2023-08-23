@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
+import com.trello.rxlifecycle4.components.support.RxFragment;
 import com.zhang.library.utils.LogUtils;
 
 /**
@@ -18,7 +18,7 @@ import com.zhang.library.utils.LogUtils;
  *
  * @author ZhangXiaoMing 2020-11-02 11:08 星期一
  */
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseRxFragment extends RxFragment {
 
     protected final String TAG = getClass().getSimpleName();
 

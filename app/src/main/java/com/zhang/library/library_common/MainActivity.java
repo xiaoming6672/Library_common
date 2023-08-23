@@ -2,31 +2,35 @@ package com.zhang.library.library_common;
 
 import android.os.Bundle;
 
-import com.zhang.library.common.activity.BaseActivity;
-import com.zhang.library.utils.LogUtils;
-
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends BaseActivity {
+import com.zhang.library.common.activity.BaseRxActivity;
+
+public class MainActivity extends BaseRxActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        LogUtils.setDebug(true);
         super.onCreate(savedInstanceState);
     }
 
+
+    /** 获取布局layout id */
     @Override
-    protected int onCreateLayoutId() {
+    protected int getContentLayoutId() {
         return R.layout.activity_main;
     }
 
     @Override
-    protected void initView() {
+    protected void onInitView() {
+    }
 
+    /** 初始化逻辑类对象 */
+    @Override
+    protected void onInitLogicComponent() {
     }
 
     @Override
-    protected void initData() {
+    protected void onInitData() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         TestFragment fragment = new TestFragment();
@@ -35,4 +39,10 @@ public class MainActivity extends BaseActivity {
 
         ft.commitAllowingStateLoss();
     }
+
+    /** 初始化监听器 */
+    @Override
+    protected void onInitListener() {
+    }
+
 }
