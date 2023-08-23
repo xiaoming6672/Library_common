@@ -1,14 +1,13 @@
-package com.zhang.library.common.vm;
+package com.zhang.library.common.viewmodel;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
-
-import com.trello.rxlifecycle4.LifecycleTransformer;
-import com.zhang.library.common.activity.XMBaseActivity;
-import com.zhang.library.common.fragment.XMBaseFragment;
 
 import java.lang.ref.WeakReference;
 
@@ -17,40 +16,48 @@ import java.lang.ref.WeakReference;
  *
  * @author ZhangXiaoMing 2023-08-06 19:52 周日
  */
-public class XMBaseViewModel extends ViewModel
+public class BaseViewModel extends ViewModel
         implements DefaultLifecycleObserver {
 
     protected final String TAG;
 
-    protected WeakReference<XMBaseActivity> mActivity;
-    protected WeakReference<XMBaseFragment> mFragment;
+    protected WeakReference<FragmentActivity> mActivity;
+    protected WeakReference<Fragment> mFragment;
+    protected WeakReference<DialogFragment> mDialog;
 
     {
         TAG = getClass().getName();
     }
 
-    public XMBaseViewModel(@NonNull XMBaseActivity activity) {
+    public BaseViewModel(@NonNull FragmentActivity activity) {
         this.mActivity = new WeakReference<>(activity);
 
         activity.getLifecycle().addObserver(this);
     }
 
-    public XMBaseViewModel(@NonNull XMBaseFragment fragment) {
-        this.mActivity = new WeakReference<>((XMBaseActivity) fragment.getActivity());
+    public BaseViewModel(@NonNull Fragment fragment) {
+        this.mActivity = new WeakReference<>(fragment.requireActivity());
         this.mFragment = new WeakReference<>(fragment);
+
+        fragment.getLifecycle().addObserver(this);
     }
 
-    /** 绑定Activity/Fragment的lifecycle */
-    public <T> LifecycleTransformer<T> bindToLifecycle() {
-        if (mFragment != null)
-            return mFragment.get().bindToLifecycle();
-        else
-            return mActivity.get().bindToLifecycle();
+    public BaseViewModel(@NonNull DialogFragment dialog) {
+        this.mActivity = new WeakReference<>(dialog.requireActivity());
+        this.mDialog = new WeakReference<>(dialog);
+
+        dialog.getLifecycle().addObserver(this);
     }
+
 
     @Override
     protected void onCleared() {
         super.onCleared();
+
+        if (mDialog != null) {
+            mDialog.clear();
+            mDialog = null;
+        }
 
         if (mFragment != null) {
             mFragment.clear();

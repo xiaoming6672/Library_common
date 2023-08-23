@@ -1,11 +1,11 @@
-package com.zhang.library.common.vm.factory;
+package com.zhang.library.common.viewmodel.factory;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.zhang.library.common.fragment.XMBaseFragment;
-import com.zhang.library.common.vm.XMBaseViewModel;
+import com.zhang.library.common.viewmodel.BaseViewModel;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Constructor;
@@ -17,18 +17,18 @@ import java.lang.reflect.Constructor;
  */
 public class FragmentVMFactory extends ViewModelProvider.NewInstanceFactory {
 
-    protected WeakReference<XMBaseFragment> mFragment;
+    protected WeakReference<Fragment> mFragment;
 
-    public FragmentVMFactory(XMBaseFragment fragment) {
+    public FragmentVMFactory(Fragment fragment) {
         this.mFragment = new WeakReference<>(fragment);
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        if (XMBaseViewModel.class.isAssignableFrom(modelClass)) {
+        if (BaseViewModel.class.isAssignableFrom(modelClass)) {
             try {
-                Constructor<T> constructor = modelClass.getConstructor(XMBaseFragment.class);
+                Constructor<T> constructor = modelClass.getConstructor(Fragment.class);
                 constructor.setAccessible(true);
                 return constructor.newInstance(mFragment.get());
             } catch (Exception e) {
