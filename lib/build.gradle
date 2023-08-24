@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.1.0"
+        versionCode 6
+        versionName "1.1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -34,7 +34,6 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$appcompat"
 
-    implementation 'com.jaeger.statusbarutil:library:1.5.1'
     implementation "com.github.xiaoming6672:Library_utils:$library_utils"
 
     implementation "androidx.lifecycle:lifecycle-common:$lifecycle"
