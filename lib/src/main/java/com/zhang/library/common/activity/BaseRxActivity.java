@@ -92,7 +92,7 @@ public abstract class BaseRxActivity extends RxAppCompatActivity
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View view) {
     }
 
 

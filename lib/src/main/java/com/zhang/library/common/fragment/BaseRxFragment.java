@@ -18,7 +18,8 @@ import com.zhang.library.utils.LogUtils;
  *
  * @author ZhangXiaoMing 2020-11-02 11:08 星期一
  */
-public abstract class BaseRxFragment extends RxFragment {
+public abstract class BaseRxFragment extends RxFragment
+        implements View.OnClickListener {
 
     protected final String TAG = getClass().getSimpleName();
 
@@ -57,7 +58,7 @@ public abstract class BaseRxFragment extends RxFragment {
         super.onViewCreated(view, savedInstanceState);
 
         onInitView(view);
-        onInitListener();
+        onInitListener(view);
 
         onPreInitData();
     }
@@ -123,6 +124,9 @@ public abstract class BaseRxFragment extends RxFragment {
         super.onDetach();
     }
 
+    @Override
+    public void onClick(View view) {
+    }
 
     @Nullable
     public final <T extends View> T findViewById(int resId) {
@@ -161,8 +165,12 @@ public abstract class BaseRxFragment extends RxFragment {
      */
     protected abstract void onInitView(@NonNull View createdView);
 
-    /** 初始化监听器 */
-    protected abstract void onInitListener();
+    /**
+     * 初始化监听器
+     *
+     * @param createdView {@link #onViewCreated(View, Bundle)}中的view
+     */
+    protected abstract void onInitListener(@NonNull View createdView);
 
     /** 提前初始化数据 */
     protected void onPreInitData() {

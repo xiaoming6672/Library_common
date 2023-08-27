@@ -35,7 +35,7 @@ public class TestFragment extends BaseRxFragment {
 
     /** 初始化监听器 */
     @Override
-    protected void onInitListener() {
+    protected void onInitListener(@NonNull View createdView) {
     }
 
     /** 初始化数据 */
