@@ -34,9 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity
         LogUtils.info(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        int contentLayoutId = getContentLayoutId();
-        if (contentLayoutId != 0)
-            setContentView(contentLayoutId);
+        onCreateContentView();
 
         onParseIntentData(getIntent());
         onInitLogicComponent();
@@ -103,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity
      *
      * @param isDark 是否黑色字体
      */
-    private void setStatusBarTransparent(boolean isDark) {
+    protected void setStatusBarTransparent(boolean isDark) {
         ViewUtils.setStatusBarTransparent(this);
         ViewUtils.setStatusBarTextColor(this, isDark);
     }
@@ -120,6 +118,11 @@ public abstract class BaseActivity extends AppCompatActivity
     /** 获取布局layout id */
     @LayoutRes
     protected abstract int getContentLayoutId();
+
+    /** 创建页面布局内容 */
+    protected void onCreateContentView() {
+        setContentView(getContentLayoutId());
+    }
 
     /** 初始化逻辑类对象 */
     protected abstract void onInitLogicComponent();

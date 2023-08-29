@@ -34,9 +34,7 @@ public abstract class BaseRxActivity extends RxAppCompatActivity
         LogUtils.info(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        int contentLayoutId = getContentLayoutId();
-        if (contentLayoutId != 0)
-            setContentView(contentLayoutId);
+        onCreateContentView();
 
         onParseIntentData(getIntent());
         onInitLogicComponent();
@@ -120,6 +118,11 @@ public abstract class BaseRxActivity extends RxAppCompatActivity
     /** 获取布局layout id */
     @LayoutRes
     protected abstract int getContentLayoutId();
+
+    /** 创建页面布局内容 */
+    protected void onCreateContentView() {
+        setContentView(getContentLayoutId());
+    }
 
     /** 初始化逻辑类对象 */
     protected abstract void onInitLogicComponent();
