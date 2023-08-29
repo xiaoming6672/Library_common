@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.zhang.library.utils.LogUtils;
+import com.zhang.library.utils.context.ViewUtils;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.zhang.library.utils.LogUtils;
-import com.zhang.library.utils.context.ViewUtils;
 
 /**
  * 基类Activity
@@ -34,7 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity
         LogUtils.info(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        setContentView(getContentLayoutId());
+        int contentLayoutId = getContentLayoutId();
+        if (contentLayoutId != 0)
+            setContentView(contentLayoutId);
 
         onParseIntentData(getIntent());
         onInitLogicComponent();

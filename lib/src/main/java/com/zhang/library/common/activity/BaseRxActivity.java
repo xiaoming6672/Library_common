@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 import com.zhang.library.utils.LogUtils;
 import com.zhang.library.utils.context.ViewUtils;
+
+import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 基类Activity
@@ -34,7 +34,9 @@ public abstract class BaseRxActivity extends RxAppCompatActivity
         LogUtils.info(TAG, "onCreate()");
         super.onCreate(savedInstanceState);
 
-        setContentView(getContentLayoutId());
+        int contentLayoutId = getContentLayoutId();
+        if (contentLayoutId != 0)
+            setContentView(contentLayoutId);
 
         onParseIntentData(getIntent());
         onInitLogicComponent();
