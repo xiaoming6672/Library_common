@@ -101,7 +101,7 @@ public abstract class BaseRxActivity extends RxAppCompatActivity
      *
      * @param isDark 是否黑色字体
      */
-    private void setStatusBarTransparent(boolean isDark) {
+    protected void setStatusBarTransparent(boolean isDark) {
         ViewUtils.setStatusBarTransparent(this);
         ViewUtils.setStatusBarTextColor(this, isDark);
     }
