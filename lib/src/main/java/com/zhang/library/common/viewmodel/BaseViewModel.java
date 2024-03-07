@@ -1,17 +1,16 @@
 package com.zhang.library.common.viewmodel;
 
+import android.os.Bundle;
+
 import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.DefaultLifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelCreator;
 
 import com.zhang.library.utils.CollectionUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -28,41 +27,26 @@ public class BaseViewModel extends ViewModel
 
     protected final String TAG;
 
-    protected WeakReference<FragmentActivity> mActivity;
-    protected WeakReference<Fragment> mFragment;
-    protected WeakReference<DialogFragment> mDialog;
-
     private final List<Disposable> mDisposableList;
 
-    {
+
+    public <T extends BaseViewModel> BaseViewModel(ViewModelCreator<T> creator) {
         TAG = getClass().getName();
+        mDisposableList = new ArrayList<>();
+        onParseBundle(creator.getBundle());
+
+        creator.getLifecycleOwner().getLifecycle().addObserver(this);
     }
 
-    public BaseViewModel(@NonNull FragmentActivity activity) {
-        this.mActivity = new WeakReference<>(activity);
-        this.mDisposableList = new ArrayList<>();
-
-        activity.getLifecycle().addObserver(this);
-    }
-
-    public BaseViewModel(@NonNull Fragment fragment) {
-        this.mActivity = new WeakReference<>(fragment.requireActivity());
-        this.mFragment = new WeakReference<>(fragment);
-        this.mDisposableList = new ArrayList<>();
-
-        fragment.getLifecycle().addObserver(this);
-    }
-
-    public BaseViewModel(@NonNull DialogFragment dialog) {
-        this.mActivity = new WeakReference<>(dialog.requireActivity());
-        this.mDialog = new WeakReference<>(dialog);
-        this.mDisposableList = new ArrayList<>();
-
-        dialog.getLifecycle().addObserver(this);
+    protected void onParseBundle(@NonNull Bundle bundle) {
     }
 
     protected void addDisposable(Disposable disposable) {
         mDisposableList.add(disposable);
+    }
+
+    protected void removeDisposable(Disposable disposable) {
+        mDisposableList.remove(disposable);
     }
 
     protected void clearDisposable() {
@@ -85,21 +69,6 @@ public class BaseViewModel extends ViewModel
         super.onCleared();
 
         clearDisposable();
-
-        if (mDialog != null) {
-            mDialog.clear();
-            mDialog = null;
-        }
-
-        if (mFragment != null) {
-            mFragment.clear();
-            mFragment = null;
-        }
-
-        if (mActivity != null) {
-            mActivity.clear();
-            mActivity = null;
-        }
     }
 
     @CallSuper
