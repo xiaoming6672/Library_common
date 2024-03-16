@@ -4,11 +4,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
 
 import com.zhang.library.utils.LogUtils;
@@ -18,7 +18,7 @@ import com.zhang.library.utils.LogUtils;
  *
  * @author ZhangXiaoMing 2020-08-13 15:27 星期四
  */
-public abstract class BaseAppView extends FrameLayout
+public abstract class BaseAppView extends ConstraintLayout
         implements View.OnClickListener {
 
 
