@@ -1,16 +1,17 @@
 package com.zhang.library.common.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.zhang.library.utils.LogUtils;
-
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+
+import com.zhang.library.utils.LogUtils;
 
 /**
  * 基类View
@@ -20,25 +21,28 @@ import androidx.annotation.Nullable;
 public abstract class BaseAppView extends FrameLayout
         implements View.OnClickListener {
 
+
     protected final String TAG = getClass().getSimpleName();
 
+
     public BaseAppView(@NonNull Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     public BaseAppView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, 0);
     }
 
     public BaseAppView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init(context, attrs);
     }
 
-    protected void init(Context context) {
+
+    protected void init(@NonNull Context context, @Nullable AttributeSet attrs) {
         LayoutInflater.from(context).inflate(onCreateLayoutId(), this);
+
+        initAttribute(context, attrs);
 
         initView();
         initData();
@@ -60,15 +64,28 @@ public abstract class BaseAppView extends FrameLayout
     public void onClick(View v) {
     }
 
-    public Activity getActivity() {
+
+    public FragmentActivity getActivity() {
         Context context = getContext();
-        if (context instanceof Activity) {
-            return ((Activity) context);
+        if (context instanceof FragmentActivity) {
+            return ((FragmentActivity) context);
         }
         return null;
     }
 
+
+    /**
+     * 初始化属性
+     *
+     * @param context 上下文
+     * @param attrs   属性集
+     */
+    protected void initAttribute(@NonNull Context context, @Nullable AttributeSet attrs) {
+    }
+
+
     /** 获取View的布局 */
+    @LayoutRes
     protected abstract int onCreateLayoutId();
 
     /** 初始化控件 */
@@ -76,4 +93,5 @@ public abstract class BaseAppView extends FrameLayout
 
     /** 初始化数据 */
     protected abstract void initData();
+
 }
