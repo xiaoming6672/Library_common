@@ -1,4 +1,4 @@
-package com.tone.note.navigation
+package androidx.navigation.fragment
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -20,10 +20,6 @@ import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.Navigation
 import androidx.navigation.Navigator
-import androidx.navigation.fragment.DialogFragmentNavigator
-import androidx.navigation.fragment.FragmentNavigator
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.R
 import androidx.navigation.plusAssign
 
 /**
