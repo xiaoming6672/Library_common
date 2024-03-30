@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 14
-        versionName "1.2.3"
+        versionCode 15
+        versionName "1.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -48,6 +48,7 @@ dependencies {
     implementation "com.github.xiaoming6672:Library_utils:$library_utils"
 
     implementation "androidx.lifecycle:lifecycle-common:$lifecycle"
+    implementation "androidx.navigation:navigation-fragment:$navigation"
 
     implementation "com.trello.rxlifecycle4:rxlifecycle-components:$rxlifecycle"
     // If you want pre-written Activities and Fragments you can subclass as providers
