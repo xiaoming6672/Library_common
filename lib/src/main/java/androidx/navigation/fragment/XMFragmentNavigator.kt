@@ -187,7 +187,7 @@ open class XMFragmentNavigator(
         }
 
         if (fragmentManager.fragments.isNotEmpty()) {
-            ft.hide(fragmentManager.fragments.get(fragmentManager.fragments.size - 1))
+            fragmentManager.fragments.forEach { ft.hide(it) }
             if (frag.isAdded)
                 ft.show(frag)
             else
