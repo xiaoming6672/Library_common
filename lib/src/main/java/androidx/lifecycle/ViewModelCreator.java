@@ -23,6 +23,8 @@ public class ViewModelCreator<T extends ViewModel> {
 
     /** 存储Provider的Map，使得一个Activity/Fragment中只有一个{@link ViewModelProvider} */
     private static final Map<LifecycleOwner, ViewModelProvider> mProviderMap = new HashMap<>();
+    /** 存储ViewModelCreator的Map，使得一个Activity/Fragment中只会有一个Creator */
+    private static final Map<LifecycleOwner, ViewModelCreator<? extends ViewModel>> mCreatorMap = new HashMap<>();
 
 
     @NonNull
@@ -35,7 +37,7 @@ public class ViewModelCreator<T extends ViewModel> {
     private final Bundle mBundle;
 
 
-    public ViewModelCreator(@NonNull LifecycleOwner lifecycleOwner, @NonNull ViewModelStoreOwner storeOwner, @NonNull Class<T> modelClass) {
+    private ViewModelCreator(@NonNull LifecycleOwner lifecycleOwner, @NonNull ViewModelStoreOwner storeOwner, @NonNull Class<T> modelClass) {
         this.mLifecycleOwner = lifecycleOwner;
         this.mStoreOwner = storeOwner;
         this.mModelClass = modelClass;
@@ -54,7 +56,24 @@ public class ViewModelCreator<T extends ViewModel> {
     public static <T extends ViewModel> ViewModelCreator<T> newBuilder(@NonNull LifecycleOwner lifecycleOwner,
                                                                        @NonNull ViewModelStoreOwner storeOwner,
                                                                        @NonNull Class<T> clazz) {
-        return new ViewModelCreator<>(lifecycleOwner, storeOwner, clazz);
+        ViewModelCreator<?> creator = mCreatorMap.get(lifecycleOwner);
+        if (creator != null) {
+            //noinspection unchecked
+            return (ViewModelCreator<T>) creator;
+        }
+
+        ViewModelCreator<T> newCreator = new ViewModelCreator<>(lifecycleOwner, storeOwner, clazz);
+        mCreatorMap.put(lifecycleOwner, newCreator);
+
+        lifecycleOwner.getLifecycle().addObserver(new DefaultLifecycleObserver() {
+            @Override
+            public void onDestroy(@NonNull LifecycleOwner owner) {
+                owner.getLifecycle().removeObserver(this);
+                mCreatorMap.remove(owner);
+            }
+        });
+
+        return newCreator;
     }
 
     /**

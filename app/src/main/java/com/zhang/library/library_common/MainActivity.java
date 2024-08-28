@@ -3,8 +3,10 @@ package com.zhang.library.library_common;
 import android.os.Bundle;
 
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelCreator;
 
 import com.zhang.library.common.activity.BaseRxActivity;
+import com.zhang.library.utils.LogUtils;
 
 public class MainActivity extends BaseRxActivity {
 
@@ -27,10 +29,17 @@ public class MainActivity extends BaseRxActivity {
     /** 初始化逻辑类对象 */
     @Override
     protected void onInitLogicComponent() {
+        ViewModelCreator<TestViewModel> creator = ViewModelCreator.newBuilder(this, this, TestViewModel.class);
+        TestViewModel model = creator.create();
+        LogUtils.debug("ZHANG", "onInitLogicComponent()>>>creator=%s, model=%s", creator, model);
     }
 
     @Override
     protected void onInitData() {
+        ViewModelCreator<TestViewModel> creator = ViewModelCreator.newBuilder(this, this, TestViewModel.class);
+        TestViewModel model = creator.create();
+        LogUtils.debug("ZHANG", "onInitData()>>>creator=%s, model=%s", creator, model);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         TestFragment fragment = new TestFragment();
